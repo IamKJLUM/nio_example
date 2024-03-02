@@ -49,6 +49,10 @@ public class SelectorServerExample {
                     ByteBuffer buffer = ByteBuffer.allocate(1024);
                     channel.read(buffer);
                     String message = new String(buffer.array()).trim();
+                    if (message.isEmpty()) {
+                        System.out.println("Разрыв соединения: " + channel);
+                        key.cancel();
+                    } else
                     System.out.println("Получено сообщение от " + channel + ": " + message);
                 }
                 keyIterator.remove();
